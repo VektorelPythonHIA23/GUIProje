@@ -16,7 +16,6 @@ class App(QMainWindow):
     def initUI(self):
         uic.loadUi(r"UI\AnaMenu.ui",self)
         self.comboDoldur()
-        self.btGiris.clicked.connect(self.girisYap)
         self.cmbIL.currentTextChanged.connect(self.cmbIlceDoldur)
         self.show()
 
@@ -42,8 +41,6 @@ class App(QMainWindow):
             self.cmbilce.addItem(item[1])
 
 
-    def girisYap(self):
-        self.txtUserName.setText("Giriş yapılsın")
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
