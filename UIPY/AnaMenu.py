@@ -1,9 +1,11 @@
 import sys
 import os
 sys.path.append(os.getcwd()+os.sep+"DB")
+sys.path.append(os.getcwd()+os.sep+"BS4")
 from PyQt5.QtWidgets import QApplication,QMainWindow
 from PyQt5 import uic
 from DBTool import DBTool
+from emlak1 import Emlak1
 
 
 class App(QMainWindow):
@@ -17,9 +19,12 @@ class App(QMainWindow):
         uic.loadUi(r"UI\AnaMenu.ui",self)
         self.comboDoldur()
         self.cmbIL.currentTextChanged.connect(self.cmbIlceDoldur)
+        self.btVeriCek.clicked.connect(self.VeriCek)
         self.show()
 
-  
+    def cevrim(self,param):
+        return param.replace("ç","c").replace("ı","i").replace("ş","s").replace("ö","o").replace("ü","u")
+
 
     def comboDoldur(self):
         self.db.tabloAdi = "ST_ILLER"
@@ -40,6 +45,15 @@ class App(QMainWindow):
         for item in self.ilceliste:
             self.cmbilce.addItem(item[1])
 
+    def VeriCek(self):
+        veri = Emlak1()
+        il = self.cmbIL.currentText().lower()
+        ilce = self.cevrim(self.cmbilce.currentText().lower())
+        # print(il,ilce)
+        self.lblSayi.setText(str(self.hs.value()))
+        for i in range(int(self.hs.value())):
+            self.pB.setValue(i*5)
+            print(*veri.veriCek(rf"https://www.sahibinden.com/satilik-daire/{il}-{ilce}?pagingOffset={i*10}&pagingSize=50"))
 
 
 if __name__ == "__main__":
