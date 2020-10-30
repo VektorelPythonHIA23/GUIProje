@@ -11,7 +11,7 @@ from emlak1 import Emlak1
 class App(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.db = DBTool(r"DB\emlak.db")
+        self.db = DBTool(r"DB\emlak_.db")
         self.initUI()
         
 
